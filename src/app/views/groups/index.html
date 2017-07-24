@@ -1,0 +1,42 @@
+<ng-container *ngIf="!preloader">
+
+  <md-list>
+    <h3 md-subheader>Search:</h3>
+
+    <md-list-item>
+      <md-input-container class="example-full-width">
+        <input mdInput name="search" value="" [(ngModel)]="search"
+               (keyup)="doSearch()">
+      </md-input-container>
+    </md-list-item>
+
+    <h3 md-subheader class="justify">
+      <span>Groups</span>
+      <button [disabled]="!onLine" md-button (click)="goToAddGroup()">+ Add group</button>
+    </h3>
+
+    <md-list-item *ngFor="let group of groups"
+                  (click)="goToDetail(group)"
+                  class="link">
+      <img attr.data-id="{{group.id}}" md-list-avatar *ngIf="onLine && group.logo" [src]="group.logo" alt="{{group.name}}">
+      <md-icon attr.data-id="{{group.id}}" md-list-avatar *ngIf="!onLine || !group.logo">not_interested</md-icon>
+
+      <h3 attr.data-id="{{group.id}}" md-line>{{group.name}}</h3>
+      <p md-line>{{group.createDate | date}}</p>
+
+      <button attr.data-id="{{group.id}}" [disabled]="!onLine" md-icon-button
+              (click)="deleteGroupFromList(group); $event.stopPropagation()">
+        <md-icon>delete</md-icon>
+      </button>
+    </md-list-item>
+  </md-list>
+
+  <md-paginator [length]="pageEventGroups.length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="paginationGroups($event)">
+  </md-paginator>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

@@ -1,0 +1,12 @@
+<md-list>
+  <h3 md-subheader>Search:</h3>
+  <md-list-item>
+    <md-input-container class="example-full-width">
+      <input mdInput name="search" value="" [(ngModel)]="search"
+             (keyup)="users.doSearch();groups.doSearch()">
+    </md-input-container>
+  </md-list-item>
+</md-list>
+
+<users-in-search #users [parentSearch]="search"></users-in-search>
+<groups-in-search #groups [parentSearch]="search"></groups-in-search>

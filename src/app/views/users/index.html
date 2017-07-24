@@ -1,0 +1,43 @@
+<ng-container *ngIf="!preloader">
+
+  <md-list>
+    <h3 md-subheader>Search:</h3>
+
+    <md-list-item>
+      <md-input-container class="example-full-width">
+        <input mdInput name="search" value="" [(ngModel)]="search"
+               (keyup)="doSearch()">
+      </md-input-container>
+    </md-list-item>
+
+    <h3 md-subheader class="justify">
+      <span>Users</span>
+      <button [disabled]="!onLine" md-button (click)="goToAddUser()">+ Add user</button>
+    </h3>
+
+    <md-list-item *ngFor="let user of users"
+                  (click)="goToDetail(user)"
+                  class="link">
+      <img attr.data-id="{{user.id}}" md-list-avatar *ngIf="onLine && user.photo" [src]="user.photo"
+           alt="{{user.firstName}} {{user.lastName}}">
+      <md-icon attr.data-id="{{user.id}}" md-list-avatar *ngIf="!onLine || !user.photo">face
+      </md-icon>
+
+      <h3 attr.data-id="{{user.id}}" md-line>{{user.firstName}} {{user.lastName}}</h3>
+
+      <button attr.data-id="{{user.id}}" [disabled]="!onLine" md-icon-button
+              (click)="deleteUserFromList(user); $event.stopPropagation()">
+        <md-icon>delete</md-icon>
+      </button>
+    </md-list-item>
+  </md-list>
+
+  <md-paginator [length]="pageEventUsers.length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="paginationUsers($event)">
+  </md-paginator>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

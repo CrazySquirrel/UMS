@@ -1,0 +1,23 @@
+<ng-container *ngIf="!preloader">
+
+  <ng-container *ngIf="users?.length>0">
+    <md-list>
+      <md-divider></md-divider>
+      <h3 md-subheader>Users:</h3>
+      <md-divider></md-divider>
+      <md-list-item *ngFor="let user of users">
+        <h3 md-line attr.data-id="{{user.id}}" (click)="goToDetail(user)" class="link">{{user.firstName}} {{user.lastName}}</h3>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+
+    <md-paginator [length]="pageEventUsers.length"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="paginationUsers($event)">
+    </md-paginator>
+  </ng-container>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

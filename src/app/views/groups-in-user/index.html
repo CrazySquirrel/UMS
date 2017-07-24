@@ -1,0 +1,39 @@
+<ng-container *ngIf="!preloader">
+
+  <md-input-container class="example-full-width">
+    <input mdInput name="search" placeholder="Group search" value="" [(ngModel)]="search"
+           (keyup)="doSearch()">
+  </md-input-container>
+
+  <md-list>
+    <h3 md-subheader class="justify">
+    <span>
+      Groups
+      <span *ngIf="filterGroupsByInUserStatus">(Active)</span>
+      <span *ngIf="!filterGroupsByInUserStatus">(All)</span>
+    </span>
+      <md-slide-toggle (change)="getGroups()"
+                       [(ngModel)]="filterGroupsByInUserStatus"></md-slide-toggle>
+    </h3>
+
+    <md-divider></md-divider>
+
+    <md-list-item *ngFor="let group of groups">
+      <h3 md-line attr.data-id="{{group.id}}" (click)="goToDetail(group)" class="link">{{group.name}}</h3>
+      <md-slide-toggle attr.data-id="{{group.id}}" [disabled]="!onLine"
+                       (change)="toggleGroup()"
+                       [(ngModel)]="userStatuses[group.id]"></md-slide-toggle>
+    </md-list-item>
+
+    <md-divider></md-divider>
+  </md-list>
+
+  <md-paginator [length]="pageEventGroups.length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="paginationGroups($event)">
+  </md-paginator>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

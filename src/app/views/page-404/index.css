@@ -1,0 +1,20 @@
+:host {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: #66CEFF url("../../../assets/images/cat.gif") center center no-repeat;
+  position: absolute;
+}
+
+:host::after {
+  content: "404 Page does not exist";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 75px 0 0 0;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-weight: bold;
+}

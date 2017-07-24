@@ -1,0 +1,24 @@
+<ng-container *ngIf="!preloader">
+
+  <md-card *ngIf="user" id="detail-page">
+    <md-card-header>
+      <img md-card-avatar *ngIf="onLine && user.photo" [src]="user.photo"
+           alt="{{user.firstName}} {{user.lastName}}">
+      <md-icon md-card-avatar *ngIf="!onLine || !user.photo">face</md-icon>
+
+      <md-card-title>{{user.firstName}} {{user.lastName}}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <groups-in-user [userID]="user.id"></groups-in-user>
+    </md-card-content>
+    <md-card-actions>
+      <button data-class="back" md-button (click)="goBack()">Back</button>
+      <button data-class="delete" [disabled]="!onLine" md-button (click)="deleteUser(user); $event.stopPropagation()">
+        Delete
+      </button>
+    </md-card-actions>
+  </md-card>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

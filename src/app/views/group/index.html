@@ -1,0 +1,22 @@
+<ng-container *ngIf="!preloader">
+
+  <md-card *ngIf="group" class="detail-page">
+    <md-card-header>
+      <img md-card-avatar *ngIf="onLine && group.logo" [src]="group.logo" alt="{{group.name}}">
+      <md-icon md-card-avatar *ngIf="!onLine || !group.logo">not_interested</md-icon>
+
+      <md-card-title>{{group.name}}</md-card-title>
+      <md-card-subtitle>{{group.createDate | date}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <users-in-group [groupID]="group.id"></users-in-group>
+    </md-card-content>
+    <md-card-actions>
+      <button data-class="back" md-button (click)="goBack()">Back</button>
+      <button data-class="delete" [disabled]="!onLine" md-button (click)="deleteGroup(group);">Delete</button>
+    </md-card-actions>
+  </md-card>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

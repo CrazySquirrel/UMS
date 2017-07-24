@@ -1,0 +1,42 @@
+<form *ngIf="user" (submit)="saveUser()">
+  <md-card>
+    <md-card-header>
+      <md-card-title>
+        <md-input-container class="example-full-width">
+          <input type="url" mdInput placeholder="Photo url" name="photo" value=""
+                 [formControl]="photoFormControl"
+                 [(ngModel)]="user.photo">
+          <md-error *ngIf="photoFormControl.hasError('pattern')">
+            Please enter a valid url address
+          </md-error>
+          <md-error *ngIf="photoFormControl.hasError('required')">
+            Photo url is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-input-container>
+          <input type="text" mdInput placeholder="First Name" name="firstName" value=""
+                 [formControl]="firstNameFormControl"
+                 [(ngModel)]="user.firstName">
+          <md-error *ngIf="firstNameFormControl.hasError('required')">
+            First name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-input-container>
+          <input type="text" mdInput placeholder="Last Name" name="lastName" value=""
+                 [formControl]="lastNameFormControl"
+                 [(ngModel)]="user.lastName">
+          <md-error *ngIf="lastNameFormControl.hasError('required')">
+            Last name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </md-card-title>
+    </md-card-header>
+    <md-card-actions>
+      <button md-button data-class="create" type="submit"
+              [disabled]="!(photoFormControl.valid && firstNameFormControl.valid && lastNameFormControl.valid)">
+        Create
+      </button>
+      <button md-button data-class="back" (click)="goBack()">Back</button>
+    </md-card-actions>
+  </md-card>
+</form>

@@ -1,0 +1,34 @@
+<form *ngIf="group" (submit)="saveGroup()">
+  <md-card>
+    <md-card-header>
+      <md-card-title>
+        <md-input-container class="example-full-width">
+          <input type="url" mdInput placeholder="Logo url" name="logo" value=""
+                 [formControl]="logoFormControl"
+                 [(ngModel)]="group.logo">
+          <md-error *ngIf="logoFormControl.hasError('pattern')">
+            Please enter a valid url address
+          </md-error>
+          <md-error *ngIf="logoFormControl.hasError('required')">
+            Logo url is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-input-container>
+          <input type="text" mdInput placeholder="Name" name="name" value=""
+                 [formControl]="nameFormControl"
+                 [(ngModel)]="group.name">
+          <md-error *ngIf="nameFormControl.hasError('required')">
+            Name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </md-card-title>
+    </md-card-header>
+    <md-card-actions>
+      <button md-button data-class="create" type="submit"
+              [disabled]="!(logoFormControl.valid && nameFormControl.valid)">
+        Create
+      </button>
+      <button md-button data-class="back" (click)="goBack()">Back</button>
+    </md-card-actions>
+  </md-card>
+</form>

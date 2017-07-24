@@ -1,0 +1,24 @@
+<ng-container *ngIf="!preloader">
+
+  <div *ngIf="groups?.length>0">
+    <md-list>
+      <md-divider></md-divider>
+      <h3 md-subheader>Groups:</h3>
+      <md-divider></md-divider>
+      <md-list-item *ngFor="let group of groups">
+        <h3 md-line attr.data-id="{{group.id}}" (click)="goToDetail(group)" class="link">
+          {{group.name}}</h3>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+
+    <md-paginator [length]="pageEventGroups.length"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="paginationGroups($event)">
+    </md-paginator>
+  </div>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>

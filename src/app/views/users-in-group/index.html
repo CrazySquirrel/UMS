@@ -1,0 +1,40 @@
+<ng-container *ngIf="!preloader">
+
+  <md-input-container class="example-full-width">
+    <input mdInput name="search" placeholder="User search" value="" [(ngModel)]="search"
+           (keyup)="doSearch();">
+  </md-input-container>
+
+  <md-list>
+    <h3 md-subheader class="justify">
+    <span>
+      Users
+      <span *ngIf="filterUsersByInGroupStatus">(Active)</span>
+      <span *ngIf="!filterUsersByInGroupStatus">(All)</span>
+    </span>
+      <md-slide-toggle (change)="getUsers()"
+                       [(ngModel)]="filterUsersByInGroupStatus"></md-slide-toggle>
+    </h3>
+
+    <md-divider></md-divider>
+
+    <md-list-item *ngFor="let user of users">
+      <h3 md-line attr.data-id="{{user.id}}" (click)="goToDetail(user)" class="link">{{user.firstName}} {{user.lastName}}</h3>
+      <md-slide-toggle attr.data-id="{{user.id}}"
+                       [disabled]="!onLine"
+                       (change)="toggleUser()"
+                       [(ngModel)]="groupStatuses[user.id]"></md-slide-toggle>
+    </md-list-item>
+
+    <md-divider></md-divider>
+  </md-list>
+
+  <md-paginator [length]="pageEventUsers.length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="paginationUsers($event)">
+  </md-paginator>
+
+</ng-container>
+
+<md-spinner *ngIf="preloader"></md-spinner>
